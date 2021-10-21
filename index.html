@@ -112,63 +112,57 @@
 
                 <button type='submit'>Create Account</button>
             </form>
-        </div>
+
+        
 
          <!-- Confirm Registration -->
-            <div data-role="popup" id="popup-register-confirm" class="ui-content" data-overlay-theme="b">
-                <div data-role="header">
-                    <h1>Confirmation</h1>
-                </div>
+            <form data-role="popup" id="frm-confirm" class="ui-content" data-overlay-theme="b">
+                <table style="text-align: left;">
+                    <tr>
+                        <th>Name</th>
+                        <td id="propertyname"></td>
+                    </tr>
 
-                <div data-role="main" class="ui-content" class="ui-content" data-overlay-theme="b">
-                    <table style="text-align: left;">
-                        <tr>
-                            <th>Name</th>
-                            <td id="propertyname"></td>
-                        </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>
+                            <span id="street"></span>, 
+                            <span id="ward"></span>, 
+                            <span id="district"></span>, 
+                            <span id="city"></span>
+                        </td>
+                    </tr>
 
-                        <tr>
-                            <th>Address</th>
-                            <td>
-                                <span id="street"></span>, 
-                                <span id="ward"></span>, 
-                                <span id="district"></span>, 
-                                <span id="city"></span>
-                            </td>
-                        </tr>
+                    <tr>
+                        <th>Type</th>
+                        <td id="type"></td>
+                    </tr>
 
-                        <tr>
-                            <th>Type</th>
-                            <td id="type"></td>
-                        </tr>
+                    <tr>
+                        <th>Furniture</th>
+                        <td id="furniture"></td>
+                    </tr>
 
-                        <tr>
-                            <th>Furniture</th>
-                            <td id="furniture"></td>
-                        </tr>
+                    <tr>
+                        <th>Bedroom No.</th>
+                        <td id="bedroom"></td>
+                    </tr>
 
-                        <tr>
-                            <th>Bedroom No.</th>
-                            <td id="bedroom"></td>
-                        </tr>
+                    <tr>
+                        <th>Price</th>
+                        <td id="price"></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Reporter</th>
+                        <td id="reporter"></td>
+                    </tr>
 
-                        <tr>
-                            <th>Price</th>
-                            <td id="price"></td>
-                        </tr>
-                        
-                        <tr>
-                            <th>Reporter</th>
-                            <td id="reporter"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Note</th>
-                            <td id="note"></td>
-                        </tr>
-                    </table>
-                </div>
-
+                    <tr>
+                        <th>Note</th>
+                        <td id="note"></td>
+                    </tr>
+                </table> 
                 <div class="ui-grid-a">
                     <div class="ui-block-a" style="padding: 5px;">
                         <button type="button" id="edit">Edit</button>
@@ -178,7 +172,8 @@
                         <button type="submit" id="btn-register-confirm" class="green">Confirm</button>
                     </div>
                 </div>
-            </div>
+            </form>
+        </div>
         <div data-role='footer' data-position='fixed'>
             <div data-role='navbar'>
                 <ul>

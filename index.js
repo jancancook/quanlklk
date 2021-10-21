@@ -52,9 +52,9 @@ function onDeviceReady() {
 
         //CREATE TABLE 'NOTE'
         var query = `CREATE TABLE IF NOT EXISTS Note (Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                        AccountID INTEGER NOT NULL,
+                                                        CustomerID INTEGER NOT NULL,
                                                         Note TEXT NOT NULL,
-                                                        FOREIGN KEY(AccountId) REFERENCES Account(Id))`;
+                                                        FOREIGN KEY(CustomerID) REFERENCES Customer(Id))`;
 
         // Execute a query.
         tx.executeSql(query, [], transactionSuccess, transactionError);
@@ -274,7 +274,7 @@ function importWard(form, selectedId = -1) {
 
 // Submit a form to register a new account.
 //$(document).on('submit', '#page-create #frm-register', confirmAccount);
-$(document).on('submit', '#page-create #frm-register', confirmCustomer);
+$(document).on('submit', '#page-create #frm-confirm', confirmCustomer);
 
 //function confirmAccount(e) {
   function confirmCustomer(e) {
@@ -284,17 +284,17 @@ $(document).on('submit', '#page-create #frm-register', confirmCustomer);
     //var password = $('#page-create #frm-register #password').val();
     //var password_confirm = $('#page-create #password-confirm').val();
 
-    var propertyname = $('#page-create #frm-register #propertyname').val();
-    var street = $('#page-create #frm-register #street').val();
-    var city = $('#page-create #frm-register #city').val();
-    var district = $('#page-create #frm-register #district').val();
-    var ward = $('#page-create #frm-register #ward').val();
-    var type = $('#page-create #frm-register #type').val();
-    var furniture = $('#page-create #frm-register #furniture').val();
-    var bedroom = $('#page-create #frm-register #bedroom').val();
-    var price = $('#page-create #frm-register #price').val();
-    var reporter = $('#page-create #frm-register #reporter').val();
-    var note = $('#page-create #frm-register #note').val();
+    var propertyname = $('#page-create #frm-confirm #propertyname').val();
+    var street = $('#page-create #frm-confirm #street').val();
+    var city = $('#page-create #frm-confirm #city').val();
+    var district = $('#page-create #frm-confirm #district').val();
+    var ward = $('#page-create #frm-confirm #ward').val();
+    var type = $('#page-create #frm-confirm #type').val();
+    var furniture = $('#page-create #frm-confirm #furniture').val();
+    var bedroom = $('#page-create #frm-confirm #bedroom').val();
+    var price = $('#page-create #frm-confirm #price').val();
+    var reporter = $('#page-create #frm-confirm #reporter').val();
+    var note = $('#page-create #frm-confirm #note').val();
 
     // if (password != password_confirm) {
     //     $('#password-confirm')[0].setCustomValidity('Password mismatch.');
@@ -316,39 +316,59 @@ $(document).on('submit', '#page-create #frm-register', confirmCustomer);
     //         }
     //     });
     // }
-    // db.transaction(function (tx) {
-        // var query = 'SELECT * FROM Customer WHERE  = ?';
-        // tx.executeSql(query, [], transactionSuccess, transactionError);
-                $('#page-create #popup-register-confirm #propertyname').text(propertyname);
-                $('#page-create #popup-register-confirm #street').text(street);
-                $('#page-create #popup-register-confirm #city').text(city);
-                $('#page-create #popup-register-confirm #district').text(district);
-                $('#page-create #popup-register-confirm #ward').text(ward);
-                $('#page-create #popup-register-confirm #type').text(type);
-                $('#page-create #popup-register-confirm #furniture').text(furniture);
-                $('#page-create #popup-register-confirm #bedroom').number(bedroom);
-                $('#page-create #popup-register-confirm #price').number(price);
-                $('#page-create #popup-register-confirm #reporter').text(reporter);
-                $('#page-create #popup-register-confirm #note').text(note);
-                $('#page-create #popup-register-confirm').popup('open');
-    // });
+     db.transaction(function (tx) {
+         var query = 'SELECT * FROM Customer WHERE  = ?';
+         tx.executeSql(query, [], transactionSuccess, transactionError);
+         function transactionSuccess(tx, result) {
+            if (result.rows[0] == null){
+                $('#page-create #frm-confirm #propertyname').text(propertyname);
+                $('#page-create #frm-confirm #street').text(street);
+                $('#page-create #frm-confirm #city').text(city);
+                $('#page-create #frm-confirm #district').text(district);
+                $('#page-create #frm-confirm #ward').text(ward);
+                $('#page-create #frm-confirm #type').text(type);
+                $('#page-create #frm-confirm #furniture').text(furniture);
+                $('#page-create #frm-confirm #bedroom').text(bedroom);
+                $('#page-create #frm-confirm #price').text(price);
+                $('#page-create #frm-confirm #reporter').text(reporter);
+                $('#page-create #frm-confirm #note').text(note);
+                $('#page-create #frm-confirm').popup('open');
+            }
+            else{
+             alert('Account exists.');
+            } 
+         }
+    });
 }
 
 
-$(document).on('vclick', '#btn-register-confirm', registerAccount);
+//$(document).on('vclick', '#btn-register-confirm', registerAccount);
+$(document).on('submit', '#page-create #frm-register', registerCustomer);
 
-function registerAccount(e) {
+function registerCustomer(e) {
     e.preventDefault();
 
     // Get user's input.
-    var username = $('#page-create #popup-register-confirm #username').text();
-    var password = $('#page-create #popup-register-confirm #password').text();
+    // var username = $('#page-create #popup-register-confirm #username').text();
+    // var password = $('#page-create #popup-register-confirm #password').text();
     
-
+    var propertyname = $('#page-create #frm-register #propertyname').text();
+    var street = $('#page-create #frm-register #street').text();
+    var city = $('#page-create #frm-register #city').text();
+    var district = $('#page-create #frm-register #district').text();
+    var ward = $('#page-create #frm-register #ward').text();
+    var type = $('#page-create #frm-register #type').text();
+    var furniture = $('#page-create #frm-register #furniture').text();
+    var bedroom = $('#page-create #frm-register #bedroom').text();
+    var price = $('#page-create #frm-register #price').text();
+    var reporter = $('#page-create #frm-register #reporter').text();
+    //var note = $('#page-create #frm-register #note').text();
     
         db.transaction(function (tx) {
-            var query = 'INSERT INTO Account (Username, Password) VALUES (?, ?)';
-            tx.executeSql(query, [username, password], transactionSuccess, transactionError);
+            //var query = 'INSERT INTO Account (Username, Password) VALUES (?, ?)';
+            var query = 'INSERT INTO Customer (CustomerName, Street, City, District, Ward, Type, Bedroom, Price, Furniture, Reporter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            //var note = $('#page-create #frm-register #note').text();
+            tx.executeSql(query, [propertyname, street, city, district, ward, type, bedroom, price, furniture, reporter], transactionSuccess, transactionError);
 
             function transactionSuccess(tx, result) {
                 // Logging.
@@ -358,7 +378,7 @@ function registerAccount(e) {
                 $('#frm-register').trigger('reset');
                 $('#username').focus();
 
-                $('#page-create #popup-register-confirm').popup('close');
+                $('#page-create #frm-confirm').popup('close');
             }
         });
     
