@@ -78,9 +78,9 @@
                 <input type='text' placeholder='Enter street number here' id='street' required>
                 
                 <!--Address-->
-                <select id="city"></select>
-                <select id="district"></select>
-                <select id="ward"></select>
+                <select id="city" required></select>
+                <select id="district" required></select>
+                <select id="ward" required></select>
                
                 <!--Type and Furniture-->
                 <h4 style="color: #008040;">Property Type</h4>
@@ -174,6 +174,7 @@
                 </div>
             </form>
         </div>
+        
         <div data-role='footer' data-position='fixed'>
             <div data-role='navbar'>
                 <ul>
@@ -207,13 +208,13 @@
         </div>
     </div>
 
-    <!-- PAGE 'ACCOUNT LIST' -->
+    <!-- PAGE 'CUSTOMER LIST' -->
     <div data-role='page' id='page-list'>
         <div data-role='header' data-position='fixed'></div>
 
         <div data-role='main'>
-            <!--Display Account List-->
-            <ul id='list-account' data-role='listview' class='ui-nodisc-icon ui-alt-icon'></ul>
+            <!--Display Customer List-->
+            <ul id='list-customer' data-role='listview' class='ui-nodisc-icon ui-alt-icon'></ul>
         </div>
 
         <div data-role='footer' data-position='fixed'>
@@ -267,19 +268,58 @@
                 </tr>
 
                 <tr>
-                    <th>ID</th>
-                    <td id='id'></td>
+                    <th>Customer Name</th>
+                    <td id='customername'></td>
                 </tr>
 
                 <tr>
-                    <th>Username</th>
-                    <td id='username'></td>
+                    <th>Reservation details:</th>
                 </tr>
 
                 <tr>
-                    <th>Password</th>
-                    <td id='password'></td>
+                    <th>Address</th>
+                        <td>
+                            <span id="street"></span>, 
+                            <span id="ward"></span>, 
+                            <span id="district"></span>, 
+                            <span id="city"></span>
+                        </td>
                 </tr>
+
+                <tr>
+                    <th>Type</th>
+                    <td id='type'></td>
+                </tr>
+
+                <tr>
+                    <th>Bedroom No.</th>
+                    <td id='bedroom'></td>
+                </tr>
+
+                <tr>
+                    <th>Price</th>
+                    <td id='price'></td>
+                </tr>
+
+                <tr>
+                    <th>Furniture</th>
+                    <td id='furniture'></td>
+                </tr>
+
+                <tr>
+                    <th>Reporter</th>
+                    <td id='reporter'></td>
+                </tr>
+
+                <!--Form note -->
+                <!-- <form id="frm-note" style="margin-top: 25px;">
+                    <textarea id="txt-note" placeholder="Note something here..."></textarea>
+                    <div style="text-align: right;">
+                        <button type="submit" class="ui-btn ui-btn-inline ui-corner-all ui-btn-b">Confirm Note</button>
+                    </div>
+
+                    <div id="list-note"></div>
+                </form> -->
             </table>
 
             <fieldset class='ui-grid-a' style='margin-top: 25px;'>

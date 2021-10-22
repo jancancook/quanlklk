@@ -111,8 +111,8 @@ function onDeviceReady() {
                                                             Bedroom INTEGER NOT NULL,
                                                             Price REAL NOT NULL,
                                                             Furniture INTEGER NULL,
-                                                            Reporter TEXT NOT NULL,
-                                                            DateAdded REAL NOT NULL)`;
+                                                            Reporter TEXT NOT NULL)`;
+                                                            // DateAdded REAL NOT NULL)`;
 
         tx.executeSql(query, [], transactionSuccessForTable('Property'), transactionError);
 
@@ -274,51 +274,29 @@ function importWard(form, selectedId = -1) {
 
 // Submit a form to register a new account.
 //$(document).on('submit', '#page-create #frm-register', confirmAccount);
-$(document).on('submit', '#page-create #frm-confirm', confirmCustomer);
+$(document).on('submit', '#page-create #frm-register', confirmCustomer);
 
 //function confirmAccount(e) {
   function confirmCustomer(e) {
     e.preventDefault();
 
-    //var username = $('#page-create #frm-register #username').val();
-    //var password = $('#page-create #frm-register #password').val();
-    //var password_confirm = $('#page-create #password-confirm').val();
+    var propertyname = $('#page-create #frm-register #propertyname').val();
+    var street = $('#page-create #frm-register #street').val();
+    var city = $('#page-create #frm-register #city option:selected').text();
+    var district = $('#page-create #frm-register #district option:selected').text();
+    var ward = $('#page-create #frm-register #ward option:selected').text();
+    var type = $('#page-create #frm-register #type option:selected').text();
+    var furniture = $('#page-create #frm-register #furniture option:selected').text();
+    var bedroom = $('#page-create #frm-register #bedroom').val();
+    var price = $('#page-create #frm-register #price').val();
+    var reporter = $('#page-create #frm-register #reporter').val();
+    // var note = $('#page-create #frm-register #note').val();
 
-    var propertyname = $('#page-create #frm-confirm #propertyname').val();
-    var street = $('#page-create #frm-confirm #street').val();
-    var city = $('#page-create #frm-confirm #city').val();
-    var district = $('#page-create #frm-confirm #district').val();
-    var ward = $('#page-create #frm-confirm #ward').val();
-    var type = $('#page-create #frm-confirm #type').val();
-    var furniture = $('#page-create #frm-confirm #furniture').val();
-    var bedroom = $('#page-create #frm-confirm #bedroom').val();
-    var price = $('#page-create #frm-confirm #price').val();
-    var reporter = $('#page-create #frm-confirm #reporter').val();
-    var note = $('#page-create #frm-confirm #note').val();
 
-    // if (password != password_confirm) {
-    //     $('#password-confirm')[0].setCustomValidity('Password mismatch.');
-    // }
-    // else {
-    //     db.transaction(function (tx) {
-    //         var query = 'SELECT * FROM Account WHERE Username = ?';
-    //         tx.executeSql(query, [username], transactionSuccess, transactionError);
-
-    //         function transactionSuccess(tx, result) {
-    //             if (result.rows[0] == null){
-    //                 $('#page-create #popup-register-confirm #username').text(username);
-    //                 $('#page-create #popup-register-confirm #password').text(password);
-    //                 $('#page-create #popup-register-confirm').popup('open');
-    //             }
-    //             else{
-    //                 alert('Account exists.');
-    //             } 
-    //         }
-    //     });
-    // }
      db.transaction(function (tx) {
-         var query = 'SELECT * FROM Customer WHERE  = ?';
-         tx.executeSql(query, [], transactionSuccess, transactionError);
+         
+         var query = 'SELECT * FROM Customer WHERE CustomerName = ?';
+         tx.executeSql(query, [propertyname], transactionSuccess, transactionError);
          function transactionSuccess(tx, result) {
             if (result.rows[0] == null){
                 $('#page-create #frm-confirm #propertyname').text(propertyname);
@@ -331,7 +309,7 @@ $(document).on('submit', '#page-create #frm-confirm', confirmCustomer);
                 $('#page-create #frm-confirm #bedroom').text(bedroom);
                 $('#page-create #frm-confirm #price').text(price);
                 $('#page-create #frm-confirm #reporter').text(reporter);
-                $('#page-create #frm-confirm #note').text(note);
+                // $('#page-create #frm-confirm #note').text(note);
                 $('#page-create #frm-confirm').popup('open');
             }
             else{
@@ -343,7 +321,7 @@ $(document).on('submit', '#page-create #frm-confirm', confirmCustomer);
 
 
 //$(document).on('vclick', '#btn-register-confirm', registerAccount);
-$(document).on('submit', '#page-create #frm-register', registerCustomer);
+$(document).on('submit', '#page-create #frm-confirm', registerCustomer);
 
 function registerCustomer(e) {
     e.preventDefault();
@@ -352,16 +330,16 @@ function registerCustomer(e) {
     // var username = $('#page-create #popup-register-confirm #username').text();
     // var password = $('#page-create #popup-register-confirm #password').text();
     
-    var propertyname = $('#page-create #frm-register #propertyname').text();
-    var street = $('#page-create #frm-register #street').text();
-    var city = $('#page-create #frm-register #city').text();
-    var district = $('#page-create #frm-register #district').text();
-    var ward = $('#page-create #frm-register #ward').text();
-    var type = $('#page-create #frm-register #type').text();
-    var furniture = $('#page-create #frm-register #furniture').text();
-    var bedroom = $('#page-create #frm-register #bedroom').text();
-    var price = $('#page-create #frm-register #price').text();
-    var reporter = $('#page-create #frm-register #reporter').text();
+    var propertyname = $('#page-create #frm-register #propertyname').val();
+    var street = $('#page-create #frm-register #street').val();
+    var city = $('#page-create #frm-register #city option:selected').text();
+    var district = $('#page-create #frm-register #district option:selected').text();
+    var ward = $('#page-create #frm-register #ward option:selected').text();
+    var type = $('#page-create #frm-register #type option:selected').text();
+    var furniture = $('#page-create #frm-register #furniture option:selected').text();
+    var bedroom = $('#page-create #frm-register #bedroom').val();
+    var price = $('#page-create #frm-register #price').val();
+    var reporter = $('#page-create #frm-register #reporter').val();
     //var note = $('#page-create #frm-register #note').text();
     
         db.transaction(function (tx) {
@@ -372,7 +350,7 @@ function registerCustomer(e) {
 
             function transactionSuccess(tx, result) {
                 // Logging.
-                log(`Create a username '${username}' successfully.`);
+                log(`Create a username '${propertyname}' successfully.`);
 
                 // Reset the form.
                 $('#frm-register').trigger('reset');
@@ -385,65 +363,155 @@ function registerCustomer(e) {
 }
 
 // Display Account List.
-$(document).on('pagebeforeshow', '#page-list', showList);
+// $(document).on('pagebeforeshow', '#page-list', showList);
 
-function showList() {
-    db.transaction(function (tx) {
-        var query = 'SELECT Id, Username FROM Account';
+// function showList() {
+//     db.transaction(function (tx) {
+//         var query = 'SELECT Id, Username FROM Account';
+//         tx.executeSql(query, [], transactionSuccess, transactionError);
+
+//         function transactionSuccess(tx, result) {
+//             log(`Show list of accounts successfully.`);
+
+//             // Prepare the list of accounts.
+//             var listAccount = `<ul id='list-account' data-role='listview' data-filter='true' data-filter-placeholder='Search accounts...'
+//                                                      data-corners='false' class='ui-nodisc-icon ui-alt-icon'>`;
+//             for (let account of result.rows) {
+//                 listAccount += `<li><a data-details='{"Id" : ${account.Id}}'>
+//                                     <img src='img/boyscout_logo.jpg'>
+//                                     <h3>Username: ${account.Username}</h3>
+//                                     <p>ID: ${account.Id}</p>
+//                                 </a></li>`;
+//             }
+//             listAccount += `</ul>`;
+            
+//             // Add list to UI.
+//             $('#list-account').empty().append(listAccount).listview('refresh').trigger('create');
+//         }
+//     });
+
+//     showNote();
+// }
+
+//Display CustomerList
+$(document).on('pagebeforeshow', '#page-list', showListCustomer);
+
+function showListCustomer() {
+    db.transaction(function (tx) { 
+        var query = 'SELECT * FROM Customer';
         tx.executeSql(query, [], transactionSuccess, transactionError);
 
         function transactionSuccess(tx, result) {
-            log(`Show list of accounts successfully.`);
+            log(`Show list of customer successfully.`);
 
-            // Prepare the list of accounts.
-            var listAccount = `<ul id='list-account' data-role='listview' data-filter='true' data-filter-placeholder='Search accounts...'
-                                                     data-corners='false' class='ui-nodisc-icon ui-alt-icon'>`;
-            for (let account of result.rows) {
-                listAccount += `<li><a data-details='{"Id" : ${account.Id}}'>
-                                    <img src='img/boyscout_logo.jpg'>
-                                    <h3>Username: ${account.Username}</h3>
-                                    <p>ID: ${account.Id}</p>
+            // Prepare the list of Customer.
+            var listCustomer = `<ul id='list-customer' data-role='listview' data-filter='true' data-filter-placeholder='Search accounts...'
+                                    data-corners='false' class='ui-nodisc-icon ui-alt-icon'>`;
+            
+            for (let customer of result.rows) {
+                listCustomer += `<li><a data-details='{"Id" : ${customer.Id}'>
+                                    <img src='img/hotel.jpg'>
+                                    <h3>Customer Name: ${customer.CustomerName}</h3>
+                                    <p>${customer.City}</p>
+                                    <p>Bedroom: ${customer.Bedroom}</p>
+                                    <p>Type: ${customer.Type}</p>
+                                    <p>Price: ${customer.Price}</p>
                                 </a></li>`;
             }
-            listAccount += `</ul>`;
-            
+            listCustomer += `</ul>`;
             // Add list to UI.
-            $('#list-account').empty().append(listAccount).listview('refresh').trigger('create');
+            $('#list-customer').empty().append(listCustomer).listview('refresh').trigger('create');
         }
     });
-
     showNote();
 }
 
 
 // Save Account Id.
-$(document).on('vclick', '#list-account li a', function (e) {
+// $(document).on('vclick', '#list-account li a', function (e) {
+//     e.preventDefault();
+
+//     var id = $(this).data('details').Id;
+//     localStorage.setItem('currentAccountId', id);
+
+//     $.mobile.navigate('#page-detail', { transition: 'none' });
+// });
+
+//// Save Customer Id.
+$(document).on('vclick', '#list-customer li a', function (e) {
     e.preventDefault();
 
     var id = $(this).data('details').Id;
-    localStorage.setItem('currentAccountId', id);
-
+    localStorage.setItem('currentCustomerId', id);
     $.mobile.navigate('#page-detail', { transition: 'none' });
+
 });
-
 // Show Account Details.
-$(document).on('pagebeforeshow', '#page-detail', showDetail);
+// $(document).on('pagebeforeshow', '#page-detail', showDetail);
 
-function showDetail() {
-    var id = localStorage.getItem('currentAccountId');
+// function showDetail() {
+//     var id = localStorage.getItem('currentAccountId');
+
+//     db.transaction(function (tx) {
+//         var query = 'SELECT * FROM Account WHERE Id = ?';
+//         tx.executeSql(query, [id], transactionSuccess, transactionError);
+
+//         function transactionSuccess(tx, result) {
+//             var errorMessage = 'Account not found.';
+//             var username = errorMessage;
+//             var password = errorMessage;
+
+//             if (result.rows[0] != null) {
+//                 username = result.rows[0].Username;
+//                 password = result.rows[0].Password;
+//             }
+//             else {
+//                 log(errorMessage);
+
+//                 $('#page-detail #btn-update').addClass('ui-disabled');
+//                 $('#page-detail #btn-delete-confirm').addClass('ui-disabled');
+//             }
+
+//             $('#page-detail #id').text(id);
+//             $('#page-detail #username').text(username);
+//             $('#page-detail #password').text(password);
+//         }
+//     });
+// }
+
+$(document).on('pagebeforeshow', '#page-detail', showDetailCustomer);
+
+function showDetailCustomer() {
+    var id = localStorage.getItem('currentCustomerId');
 
     db.transaction(function (tx) {
-        var query = 'SELECT * FROM Account WHERE Id = ?';
+        var query = 'SELECT * FROM Customer WHERE Id = ?';
         tx.executeSql(query, [id], transactionSuccess, transactionError);
 
         function transactionSuccess(tx, result) {
-            var errorMessage = 'Account not found.';
-            var username = errorMessage;
-            var password = errorMessage;
+            var errorMessage = 'Customer dose not existed.';
+            var propertyname = errorMessage;
+            var street = errorMessage;
+            var city = errorMessage;
+            var district = errorMessage;
+            var ward = errorMessage;
+            var type = errorMessage;
+            var furniture = errorMessage;
+            var bedroom = errorMessage;
+            var price = errorMessage;
+            var reporter = errorMessage;
 
             if (result.rows[0] != null) {
-                username = result.rows[0].Username;
-                password = result.rows[0].Password;
+                propertyname = result.rows[0].CustomerName;
+                street = result.rows[0].Street;
+                city = result.rows[0].City;
+                district = result.rows[0].District;
+                ward = result.rows[0].Ward;
+                type = result.rows[0].Type;
+                furniture = result.rows[0].Furniture;
+                bedroom = result.rows[0].Bedroom;
+                price = result.rows[0].Price;
+                reporter = result.rows[0].Reporter;
             }
             else {
                 log(errorMessage);
@@ -453,8 +521,16 @@ function showDetail() {
             }
 
             $('#page-detail #id').text(id);
-            $('#page-detail #username').text(username);
-            $('#page-detail #password').text(password);
+            $('#page-detail #customername').text(propertyname);
+            $('#page-detail #street').text(street);
+            $('#page-detail #ward').text(ward);
+            $('#page-detail #district').text(district);
+            $('#page-detail #city').text(city);
+            $('#page-detail #type').text(type);
+            $('#page-detail #furniture').text(furniture);
+            $('#page-detail #bedroom').text(bedroom);
+            $('#page-detail #price').text(price);
+            $('#page-detail #reporter').text(reporter);
         }
     });
 }
